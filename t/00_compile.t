@@ -13,6 +13,7 @@ is exists $que->{'bestResponse'}{'utterance'}, 1,                     # 03
 $que = $api->bestResponse( utterance => 'ありがとう' );
 is ref($que), 'API::Chaplus::Response', "succeed to get Responce object";   # 04
 is exists $que->{'utterance'}, 1, "succeed to get bestResponse";            # 05
+note $que;
 
 my @ques = $api->Responses( utterance => 'ありがとう' );
 is ref( $ques[0] ), 'API::Chaplus::Response',

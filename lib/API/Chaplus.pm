@@ -28,7 +28,7 @@ API::Chaplus - It's API module for Chaplus
     use API::Chaplus;
     my $api    = API::Chaplus->new( apikey => 'your_key' );
     my $answer = $api->bestResponse( utterance => '調子どう？' );
-    print $answer->{'utterance'};    # お返事が表示される
+    print $answer;    # お返事が表示される
 
 =head1 DESCRIPTION
 
