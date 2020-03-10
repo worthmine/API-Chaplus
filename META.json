@@ -42,16 +42,34 @@
       },
       "runtime" : {
          "requires" : {
+            "Carp" : "0",
+            "Data::Dumper::AutoEncode" : "0",
+            "Furl" : "0",
+            "HTTP::Request::JSON" : "0",
+            "JSON" : "0",
+            "URL::Encode" : "0",
             "perl" : "5.008001"
          }
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "Test::More" : "0.98",
+            "Test::More::UTF8" : "0"
          }
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/worthmine/API-Chaplus/issues"
+      },
+      "homepage" : "https://github.com/worthmine/API-Chaplus",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/worthmine/API-Chaplus.git",
+         "web" : "https://github.com/worthmine/API-Chaplus"
+      }
+   },
    "version" : "0.01",
    "x_authority" : "cpan:WORTHMINE",
    "x_serialization_backend" : "JSON::PP version 2.27400_02",
