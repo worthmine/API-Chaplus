@@ -1,6 +1,6 @@
 # NAME
 
-API::Chaplus - It's API modile for Chaplus
+API::Chaplus - It's API module for Chaplus
 
 # SYNOPSIS
 
@@ -12,6 +12,26 @@ API::Chaplus - It's API modile for Chaplus
 # DESCRIPTION
 
 API::Chaplus is a test implement for Chaplus-API
+
+## CONSTRUCTOR
+
+### new( apikey => YOUR\_KEY )
+
+attribute 'apikey' is required
+
+## METHODS AND SUBROUTINE
+
+### request( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+### bestResponse( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+### Responses( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
 
 # SEE ALSO
 
