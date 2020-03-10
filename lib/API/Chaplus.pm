@@ -13,7 +13,34 @@ use Furl;
 use HTTP::Request::JSON;
 my $rj = HTTP::Request::JSON->new();
 
+use API::Chaplus::Response;
+
 our $VERSION = "0.01";
+
+=encoding utf-8
+
+=head1 NAME
+
+API::Chaplus - It's API module for Chaplus
+
+=head1 SYNOPSIS
+
+    use API::Chaplus;
+    my $api    = API::Chaplus->new( apikey => 'your_key' );
+    my $answer = $api->request( utterance => '調子どう？' );
+    print $answer;    # お返事が表示される
+
+=head1 DESCRIPTION
+
+API::Chaplus is a test implement for Chaplus-API
+
+=head2 CONSTRUCTOR
+
+=head3 new( apikey => YOUR_KEY )
+
+attribute 'apikey' is required
+
+=cut
 
 sub new {
     my $class = shift;
@@ -27,6 +54,17 @@ sub new {
     return $self;
 }
 
+=head2 METHODS AND SUBROUTINE
+
+=head3 request( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+=cut 
+
+my $req = undef;
+my $res = undef;
+
 sub request {
     my $self = shift;
     my %attr = map { url_encode_utf8 $_ } @_;
@@ -34,37 +72,50 @@ sub request {
 
     my $params = $rj->json_content( \%attr );
     my $f      = Furl->new;
-    my $req    = Furl::Request->new( 'POST', $self->{'endPoint'},
-        { 'Content-Type' => 'application/json' }, $params );
-    my ($res) = $f->request($req);
+    unless ( defined $req ) {
+        $req = Furl::Request->new( 'POST', $self->{'endPoint'},
+            { 'Content-Type' => 'application/json' }, $params );
+
+        ($res) = $f->request($req);
+    }
 
     if ( $res->{'code'} eq '200' ) {
-        return $j->decode( $res->{'content'} )->{'bestResponse'}{'utterance'};
+        return $j->decode( $res->{'content'} );
     }
     else {
         croak "something wrong to post by Furl" . eDumper($res);
     }
 }
 
+=head3 bestResponse( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+=cut 
+
+sub bestResponse {
+    my $self = shift;
+    my $q    = $self->request(@_);
+    return API::Chaplus::Response->new( $q->{'bestResponse'} );
+    return $q->{'bestResponse'};
+
+}
+
+=head3 Responses( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+=cut 
+
+sub Responses {
+    my $self = shift;
+    my $q    = $self->request(@_);
+    my @list = map { API::Chaplus::Response->new($_) } @{ $q->{'responses'} };
+    return wantarray ? @list : \@list;
+}
+
 1;
 __END__
-
-=encoding utf-8
-
-=head1 NAME
-
-API::Chaplus - It's API modile for Chaplus
-
-=head1 SYNOPSIS
-
-    use API::Chaplus;
-    my $api    = API::Chaplus->new( apikey => 'your_key' );
-    my $answer = $api->request( utterance => '調子どう？' );
-    print $answer;    # お返事が表示される
-
-=head1 DESCRIPTION
-
-API::Chaplus is a test implement for Chaplus-API
 
 =head1 SEE ALSO
 
@@ -88,4 +139,3 @@ it under the same terms as Perl itself.
 worthmine E<lt>worthmine@gmail.comE<gt>
 
 =cut
-
