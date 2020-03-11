@@ -54,11 +54,13 @@ sub new {
     return $self;
 }
 
-=head2 METHODS AND SUBROUTINE
+=head2 METHODS AND SUBROUTINES
 
 =head3 request( utterance => '日本語で話しかけよう', ... )
 
 attribute 'utterance' is required
+
+returns Perl hash decoded from JSON 
 
 =cut 
 
@@ -91,6 +93,8 @@ sub request {
 
 attribute 'utterance' is required
 
+returns Response object
+
 =cut 
 
 sub bestResponse {
@@ -104,6 +108,8 @@ sub bestResponse {
 =head3 Responses( utterance => '日本語で話しかけよう', ... )
 
 attribute 'utterance' is required
+
+returns list of Response objects
 
 =cut 
 
