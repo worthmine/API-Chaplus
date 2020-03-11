@@ -16,9 +16,7 @@ use API::Chaplus::Request::AgentState;
 use API::Chaplus::Request::Addition;
 use URL::Encode qw(url_encode_utf8);
 
-subtype 'Username' => as 'Str'   => where { /^[A-F0-9%]+$/ };
-coerce 'Username'  => from 'Str' => via { url_encode_utf8($_) };
-has username => ( is => 'rw', isa => 'Username', coerce => 1 );
+has username => ( is => 'rw', isa => 'Encoded', coerce => 1 );
 
 subtype 'Utterance' => as 'Str' => where { /^[A-F0-9%]+$/ and length($_) > 0 }
 => message { "empty utterance was set" };

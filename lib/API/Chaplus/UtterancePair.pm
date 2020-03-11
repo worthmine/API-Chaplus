@@ -6,14 +6,9 @@ our $VERSION = "0.01";
 
 use Mouse;
 use Mouse::Util::TypeConstraints;
-use URL::Encode qw(url_encode_utf8);
 
-subtype 'NotEncoded' => as 'Str' => where { $_ !~ /^[A-F0-9%]+$/ };
-subtype 'Encoded'    => as 'Str' => where { /^[A-F0-9%]+$/ };
-coerce 'Encoded' => from 'Str' => via { url_encode_utf8($_) };
-
-has utterance => ( is => 'rw', isa => 'Encoded', required => 1, coerce => 1 );
-has response  => ( is => 'rw', isa => 'Encoded', required => 1, coerce => 1 );
+has utterance => ( is => 'rw', isa => 'Str', required => 1 );
+has response  => ( is => 'rw', isa => 'Str', required => 1 );
 
 no Mouse;
 
