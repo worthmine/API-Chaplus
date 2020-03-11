@@ -2,6 +2,9 @@ use strict;
 use Test::More 0.98;
 use Test::More::UTF8;
 
+use Data::Dumper::AutoEncode qw(eDumper);
+use URL::Encode qw(url_decode_utf8);
+
 use lib 'lib';
 use API::Chaplus;
 my $api = API::Chaplus->new( apikey => '5e66db56cfd39' );
@@ -21,7 +24,7 @@ my $pair = new_ok(    # 05
 my $addition = new_ok(    # 06
     'API::Chaplus::Request::Addition',
     [
-        options        => 'ボンジュール！',
+        options        => ['ボンジュール！'],
         utterancePairs => [$pair],
         ngwords        => [qw(うんち)],
     ]
@@ -49,5 +52,7 @@ $req = new_ok(                                                              # 09
 );
 
 my $que = $api->request($req);
+
+#note url_decode_utf8 eDumper $que;
 
 done_testing;

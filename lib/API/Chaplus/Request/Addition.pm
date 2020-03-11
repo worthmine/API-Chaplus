@@ -14,8 +14,10 @@ subtype 'NotEncoded' => as 'Str' => where { $_ !~ /^[A-F0-9%]+$/ };
 subtype 'Encoded'    => as 'Str' => where { /^[A-F0-9%]+$/ };
 coerce 'Encoded' => from 'NotEncoded' => via { url_encode_utf8($_) };
 
-subtype 'Options' => as 'Maybe[Encoded]';
-coerce 'Options', from 'NotEncoded', via { url_encode_utf8($_) };
+subtype 'Options' => as 'ArrayRef[Encoded]';
+coerce 'Options', from 'ArrayRef[NotEncoded]', via {
+    [ map { url_encode_utf8($_) } @$_ ]
+};
 has options => ( is => 'rw', isa => 'Options', coerce => 1 );
 
 subtype 'UtterancePairs' => as 'ArrayRef[HashRef]';

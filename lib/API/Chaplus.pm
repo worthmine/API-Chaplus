@@ -78,10 +78,9 @@ sub request {
     elsif ( ref $_[0] eq 'API::Chaplus::Request' ) {
         my $req = shift;
         %attr = %$req;
-
-        #    ::note ::explain \%attr;
     }
 
+    #::note ::explain \%attr;
     my $params = $rj->json_content( \%attr );
     my $f      = Furl->new;
     unless ( defined $req ) {
