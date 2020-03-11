@@ -1,5 +1,5 @@
 use strict;
-use Test::More 0.98;
+use Test::More 0.98 tests => 10;
 use Test::More::UTF8;
 
 use Data::Dumper::AutoEncode qw(eDumper);
@@ -29,7 +29,17 @@ my $addition = new_ok(    # 06
         ngwords        => [qw(うんち)],
     ]
 );
-my $state = new_ok(       # 07
+
+$addition = new_ok(       # 07
+    'API::Chaplus::Request::Addition',
+    [
+        options        => 'ボンジュール！',
+        utterancePairs => $pair,
+        ngwords        => 'うんち',
+    ]
+);
+
+my $state = new_ok(       # 08
     'API::Chaplus::Request::AgentState',
     [
         agentName => '茶太郎',
@@ -39,9 +49,9 @@ my $state = new_ok(       # 07
 );
 
 my $req =
-  new_ok( 'API::Chaplus::Request', [ utterance => 'こんにちわ' ] );    # 08
+  new_ok( 'API::Chaplus::Request', [ utterance => 'こんにちわ' ] );    # 09
 
-$req = new_ok(                                                              # 09
+$req = new_ok(                                                              # 10
     'API::Chaplus::Request',
     [
         username   => '花子',

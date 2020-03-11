@@ -2,16 +2,18 @@ dist: trusty
 language: perl
 sudo: false
 perl:
-  - "5.18"
-  - "5.10"
-  - "5.12"
-  - "5.14"
-  - "5.16"
-  - "5.18"
-  - "5.20"
-  - "5.22"
-  - "5.24"
-  - "5.26"
-  - "5.28"
-  - "5.30"
-
+- '5.8'
+- '5.10'
+- '5.12'
+- '5.14'
+- '5.16'
+- '5.18'
+- '5.20'
+- '5.22'
+- '5.24'
+- '5.26'
+- '5.28'
+- '5.30'
+notifications:
+  slack:
+    secure: hfPbC3D2BooU0b7XqohioIXzefGlhlWCEcor+tp+S4wgjlxgV6MSIK+IF/OwcI4bZWDLBan5rffWgAr5lAuHYkdHDUV6vpoxsA1KTCcWf3Zcvzv63Ijck7WCoiR1NG3Zxm64w6k47mC5J7gGAOtimIGOWDN9IZg3qzxJphRJMNIR8KS/+2fg03uU1pP8yzV5E1NSc2M5INsEHvPqDzpvrMmZWVizcstWQqQ92pnHj9y2LSOCXpoNaTNew3JLarm1TVm/XbFX9/nfp+gOHGEhveHPIwKy8i9duu0WFy9Cgd2EN5NnDRFAKk1kLHjWUe3/sOlUq4W9ecNG4XQoxREsnGYXdv3sFj8ghMu5tJc8MPwMfrRVvAuVO0Ye7Qtps2VtqzH5cz4zZrNxI+5s4YVNTKczA0JkbeJ9OZacJSzC8escg/2stoVxx6YafM4iQRXzZwSRhzYLcIu1Flq7w2La/M+YViEDWCTndN5ldKAyUA6tWt0QRnVqoirAlTYJuU+9B1YgbdhF3q7DhlYqtvWMpTpjO2/HJCmLi4H0egTLOhfUTU/0DFWAPArexeEQGZsOgDIMgV2d5NWBS5lv/6tSFRGXHuv4Mph0f/Bg0d/PGeJ9gUprKXvVSF5h5eukKeHLZXI/DiUTkVluPzixkXNy5qMh9nvawYzNH8U0fZ64SBA=

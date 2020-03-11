@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's API module for Chaplus",
+   "abstract" : "It's an API module for L<Chaplus|https://www.chaplus.jp/> with perl",
    "author" : [
       "worthmine <worthmine@gmail.com>"
    ],
@@ -49,6 +49,7 @@
             "JSON" : "0",
             "Mouse" : "0",
             "URL::Encode" : "0",
+            "enum" : "0",
             "perl" : "5.008001"
          }
       },

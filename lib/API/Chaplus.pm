@@ -23,7 +23,7 @@ our $VERSION = "0.01";
 
 =head1 NAME
 
-API::Chaplus - It's API module for Chaplus
+API::Chaplus - It's an API module for L<Chaplus|https://www.chaplus.jp/> with perl
 
 =head1 SYNOPSIS
 
@@ -34,7 +34,7 @@ API::Chaplus - It's API module for Chaplus
 
 =head1 DESCRIPTION
 
-API::Chaplus is a test implement for Chaplus-API
+API::Chaplus is a test implement for L<Chaplus-API|https://k-masashi.github.io/chaplus-api-doc/>
 
 =head2 CONSTRUCTOR
 
@@ -56,7 +56,7 @@ sub new {
     return $self;
 }
 
-=head2 METHODS AND SUBROUTINES
+=head2 METHODS
 
 =head3 request( utterance => '日本語で話しかけよう', ... )
 

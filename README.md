@@ -1,6 +1,6 @@
 # NAME
 
-API::Chaplus - It's API module for Chaplus
+API::Chaplus - It's an API module for [Chaplus](https://www.chaplus.jp/) with perl
 
 # SYNOPSIS
 
@@ -11,7 +11,7 @@ API::Chaplus - It's API module for Chaplus
 
 # DESCRIPTION
 
-API::Chaplus is a test implement for Chaplus-API
+API::Chaplus is a test implement for [Chaplus-API](https://k-masashi.github.io/chaplus-api-doc/)
 
 ## CONSTRUCTOR
 
@@ -19,7 +19,7 @@ API::Chaplus is a test implement for Chaplus-API
 
 attribute 'apikey' is required
 
-## METHODS AND SUBROUTINES
+## METHODS
 
 ### request( utterance => '日本語で話しかけよう', ... )
 
