@@ -44,7 +44,7 @@ $req = new_ok(                                                              # 09
         username   => '花子',
         utterance  => 'チャオ！',
         agentState => $state,
-        addition   => \%$addition,
+        addition   => $addition,
     ]
 );
 
