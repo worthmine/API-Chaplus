@@ -33,7 +33,7 @@ has agentState => ( is => 'rw', isa => 'AgentState', coerce => 1 );
 
 subtype 'Addition' => as 'HashRef';
 coerce 'Addition', from 'API::Chaplus::Request::Addition', via {
-    return +{ map { url_encode_utf8($_) } %$_ }
+    return +{%$_}
 };
 has addition => ( is => 'rw', isa => 'Addition', coerce => 1 );
 
