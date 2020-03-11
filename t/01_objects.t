@@ -48,34 +48,6 @@ $req = new_ok(                                                              # 09
     ]
 );
 
-#eval { $req = API::Chaplus::Request->new( utterance => '' ) };
-#is $@, undef, "succeed to reject empty utterance ";
-
-my $que = $api->bestResponse($req);
+my $que = $api->request($req);
 
 done_testing;
-
-__END__
-
-$que = $api->bestResponse( utterance => 'ありがとう' );
-is ref($que), 'API::Chaplus::Response', "succeed to get Responce object";   # 08
-is exists $que->{'utterance'}, 1, "succeed to get bestResponse";            # 09
-
-my @ques = $api->responses( utterance => 'それでそれで？' );
-is ref( $ques[0] ), 'API::Chaplus::Response',                               # 10
-  "succeed to get Responce object";
-is exists $ques[0]->{'utterance'}, 1, "succeed to get Responses";           # 11
-
-@ques = $api->tokenized( utterance => '仕事終わりのビールは最高' );
-is ref( $ques[0] ), 'API::Chaplus::Tokenized',                              # 12
-  "succeed to get tokenized object";
-
-#note $_ for @ques;
-
-@ques = $api->options( utterance => 'ふむふむ' );
-is ref( $ques[0] ), 'API::Chaplus::Options',                                # 13
-  "succeed to get tokenized object";
-
-#note $_ for @ques;
-
-

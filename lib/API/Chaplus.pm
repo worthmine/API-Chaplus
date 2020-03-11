@@ -66,11 +66,10 @@ returns Perl hash decoded from JSON
 
 =cut 
 
-my $req = undef;
-my $res = undef;
-
 sub request {
     my $self = shift;
+    my $req  = undef;
+    my $res  = undef;
     my %attr = ();
     if ( @_ > 1 ) {
         %attr = map { url_encode_utf8 $_ } @_;
@@ -80,7 +79,7 @@ sub request {
         my $req = shift;
         %attr = %$req;
 
-        ::note ::explain \%attr;
+        #    ::note ::explain \%attr;
     }
 
     my $params = $rj->json_content( \%attr );
@@ -112,8 +111,6 @@ sub bestResponse {
     my $self = shift;
     my $q    = $self->request(@_);
     return API::Chaplus::Response->new( $q->{'bestResponse'} );
-    return $q->{'bestResponse'};
-
 }
 
 =head3 responses( utterance => '日本語で話しかけよう', ... )
