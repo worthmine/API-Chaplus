@@ -19,19 +19,37 @@ API::Chaplus is a test implement for Chaplus-API
 
 attribute 'apikey' is required
 
-## METHODS AND SUBROUTINE
+## METHODS AND SUBROUTINES
 
 ### request( utterance => '日本語で話しかけよう', ... )
 
 attribute 'utterance' is required
 
+returns Perl hash decoded from JSON 
+
 ### bestResponse( utterance => '日本語で話しかけよう', ... )
 
 attribute 'utterance' is required
 
-### Responses( utterance => '日本語で話しかけよう', ... )
+returns Response object
+
+### responses( utterance => '日本語で話しかけよう', ... )
 
 attribute 'utterance' is required
+
+returns list of response objects
+
+### tokenized( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+returns list of tokenized objects
+
+### options( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+returns list of options objects
 
 # SEE ALSO
 

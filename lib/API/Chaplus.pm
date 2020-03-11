@@ -14,6 +14,8 @@ use HTTP::Request::JSON;
 my $rj = HTTP::Request::JSON->new();
 
 use API::Chaplus::Response;
+use API::Chaplus::Tokenized;
+use API::Chaplus::Options;
 
 our $VERSION = "0.01";
 
@@ -105,18 +107,50 @@ sub bestResponse {
 
 }
 
-=head3 Responses( utterance => '日本語で話しかけよう', ... )
+=head3 responses( utterance => '日本語で話しかけよう', ... )
 
 attribute 'utterance' is required
 
-returns list of Response objects
+returns list of response objects
 
 =cut 
 
-sub Responses {
+sub responses {
     my $self = shift;
     my $q    = $self->request(@_);
     my @list = map { API::Chaplus::Response->new($_) } @{ $q->{'responses'} };
+    return wantarray ? @list : \@list;
+}
+
+=head3 tokenized( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+returns list of tokenized objects
+
+=cut 
+
+sub tokenized {
+    my $self = shift;
+    my $q    = $self->request(@_);
+    my @list = map { API::Chaplus::Tokenized->new( token => $_ ) }
+      @{ $q->{'tokenized'} };
+    return wantarray ? @list : \@list;
+}
+
+=head3 options( utterance => '日本語で話しかけよう', ... )
+
+attribute 'utterance' is required
+
+returns list of options objects
+
+=cut 
+
+sub options {
+    my $self = shift;
+    my $q    = $self->request(@_);
+    my @list =
+      map { API::Chaplus::Options->new( suggest => $_ ) } @{ $q->{'options'} };
     return wantarray ? @list : \@list;
 }
 
