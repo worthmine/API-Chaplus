@@ -1,5 +1,5 @@
 use strict;
-use Test::More 0.98;
+use Test::More 0.98 tests => 13;
 use Test::More::UTF8;
 
 use lib 'lib';

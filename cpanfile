@@ -2,6 +2,8 @@ requires 'perl', '5.008001';
 requires 'Carp';
 
 requires 'Mouse';
+requires 'enum';
+
 requires 'Data::Dumper::AutoEncode';
 requires 'JSON';
 requires 'URL::Encode';

@@ -71,8 +71,17 @@ my $res = undef;
 
 sub request {
     my $self = shift;
-    my %attr = map { url_encode_utf8 $_ } @_;
-    croak "missing key utterance" unless $attr{'utterance'};
+    my %attr = ();
+    if ( @_ > 1 ) {
+        %attr = map { url_encode_utf8 $_ } @_;
+        croak "missing key utterance" unless $attr{'utterance'};
+    }
+    elsif ( ref $_[0] eq 'API::Chaplus::Request' ) {
+        my $req = shift;
+        %attr = %$req;
+
+        ::note ::explain \%attr;
+    }
 
     my $params = $rj->json_content( \%attr );
     my $f      = Furl->new;
@@ -83,11 +92,11 @@ sub request {
         ($res) = $f->request($req);
     }
 
-    if ( $res->{'code'} eq '200' ) {
+    if ( exists $res->{'code'} and $res->{'code'} eq '200' ) {
         return $j->decode( $res->{'content'} );
     }
     else {
-        croak "something wrong to post by Furl" . eDumper($res);
+        croak "something wrong to post by Furl: " . eDumper($res);
     }
 }
 
