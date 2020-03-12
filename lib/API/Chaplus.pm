@@ -170,6 +170,8 @@ __END__
 
 =item L<chaplus-api-doc|https://k-masashi.github.io/chaplus-api-doc/>
 
+=item L<API::Chaplus::Request.md|https://github.com/worthmine/API-Chaplus/blob/master/lib/API/Chaplus/Request.md>
+
 =back
 
 =head1 LICENSE
