@@ -45,20 +45,20 @@ Any other attributes are optional
 
 ## METHODS
 
-### username(_Name_)
+### username(_name_)
 accepts/returns the name 
 
-### utterance(_Name_)
+### utterance(_utterance_)
 
 accepts/returns the utterance 
 
-### agentState(_Name_)
+### agentState(_agentState object_)
 
-accepts/returns 'agentState' Object/HashRef 
+accepts/returns 'agentState' Object 
 
-### addition(_Name_)
+### addition(_addition object_)
 
-accepts/returns 'addition' Object/HashRef 
+accepts/returns 'addition' Object 
 
 # SEE ALSO
 

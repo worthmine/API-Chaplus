@@ -89,20 +89,20 @@ Any other attributes are optional
 
 =head2 METHODS
 
-=head3 username(I<Name>)
+=head3 username(I<name>)
 accepts/returns the name 
 
-=head3 utterance(I<Name>)
+=head3 utterance(I<utterance>)
 
 accepts/returns the utterance 
 
-=head3 agentState(I<Name>)
+=head3 agentState(I<agentState object>)
 
-accepts/returns 'agentState' Object/HashRef 
+accepts/returns 'agentState' Object 
 
-=head3 addition(I<Name>)
+=head3 addition(I<addition object>)
 
-accepts/returns 'addition' Object/HashRef 
+accepts/returns 'addition' Object 
 
 =head1 SEE ALSO
 
