@@ -4,12 +4,16 @@ use strict;
 use warnings;
 use Carp;
 
+use Encode qw(encode_utf8 decode_utf8);
+use URL::Encode qw(url_encode url_decode);
 use Data::Dumper::AutoEncode qw(eDumper);
-use JSON;
-my $j = JSON->new()->utf8();
 
-use URL::Encode qw(url_encode_utf8);
+use JSON;
+my $j = JSON->new();
+
 use Furl;
+my $f = Furl->new;
+
 use HTTP::Request::JSON;
 my $rj = HTTP::Request::JSON->new();
 
@@ -68,33 +72,32 @@ returns Perl hash decoded from JSON
 
 sub request {
     my $self = shift;
-    my $req  = undef;
-    my $res  = undef;
     my %attr = ();
     if ( @_ > 1 ) {
-        %attr = map { url_encode_utf8 $_ } @_;
+        %attr = map { decode_utf8 $_ } @_;
         croak "missing key utterance" unless $attr{'utterance'};
     }
     elsif ( ref $_[0] eq 'API::Chaplus::Request' ) {
-        my $req = shift;
-        %attr = %$req;
+        %attr = %{ shift; };
     }
 
-    #::note ::explain \%attr;
-    my $params = $rj->json_content( \%attr );
-    my $f      = Furl->new;
-    unless ( defined $req ) {
-        $req = Furl::Request->new( 'POST', $self->{'endPoint'},
-            { 'Content-Type' => 'application/json' }, $params );
+    my $ref = _encode(%attr);
 
-        ($res) = $f->request($req);
-    }
+    my $params = $rj->json_content($ref);
+
+    my $req =
+      Furl::Request->new( 'POST', $self->{'endPoint'},
+        { 'Content-Type' => 'application/json' },
+        encode_utf8($params) );
+
+    my ($res) = $f->request($req);
 
     if ( exists $res->{'code'} and $res->{'code'} eq '200' ) {
-        return $j->decode( $res->{'content'} );
+        my $content = $j->decode( $res->{'content'} );
+        return $content;
     }
     else {
-        croak "something wrong to post by Furl: " . eDumper($res);
+        croak "something wrong to post by Furl: " . url_decode eDumper($res);
     }
 }
 
@@ -135,6 +138,8 @@ returns list of tokenized objects
 
 =cut 
 
+use Encode qw(encode_utf8 decode_utf8);
+
 sub tokenized {
     my $self = shift;
     my $q    = $self->request(@_);
@@ -157,6 +162,16 @@ sub options {
     my @list =
       map { API::Chaplus::Options->new( suggest => $_ ) } @{ $q->{'options'} };
     return wantarray ? @list : \@list;
+}
+
+sub _encode {
+    my %origin  = @_;
+    my $hashref = {};
+    while ( my ( $key, $value ) = each %origin ) {
+        $hashref->{$key} = $value->serialize() and next if ref $value;
+        $hashref->{$key} = url_encode $value;
+    }
+    return $hashref;
 }
 
 1;

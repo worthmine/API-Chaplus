@@ -1,13 +1,15 @@
 use strict;
 use Test::More 0.98 tests => 13;
-use Test::More::UTF8;
+
+use Test::More::UTF8 qw(-utf8);
+use Data::Dumper::AutoEncode qw(Dumper eDumper);
+use Encode qw(decode_utf8 encode_utf8);
 
 use lib 'lib';
 use_ok 'API::Chaplus';    # 01
 
 my $api = new_ok( 'API::Chaplus', [ apikey => '5e66db56cfd39' ] );    # 02
 my $que = $api->request( utterance => '調子どう？' );
-note $que->{'bestResponse'}{'utterance'};
 isnt $que, undef, "succeed to send a request";                        # 03
 is exists $que->{'bestResponse'}, 1, "bestResponse exists";           # 04
 is exists $que->{'responses'},    1, "responses exist";               # 05
@@ -24,16 +26,13 @@ is ref( $ques[0] ), 'API::Chaplus::Response',                               # 10
 is exists $ques[0]->{'utterance'}, 1, "succeed to get Responses";           # 11
 
 @ques = $api->tokenized( utterance => '仕事終わりのビールは最高' );
+
 is ref( $ques[0] ), 'API::Chaplus::Tokenized',                              # 12
   "succeed to get tokenized object";
-
-#note $_ for @ques;
 
 @ques = $api->options( utterance => 'ふむふむ' );
 is ref( $ques[0] ), 'API::Chaplus::Options',                                # 13
   "succeed to get tokenized object";
-
-#note $_ for @ques;
 
 done_testing;
 

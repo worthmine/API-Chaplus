@@ -1,7 +1,8 @@
 use strict;
 use Test::More 0.98 tests => 10;
-use Test::More::UTF8;
+use Test::More::UTF8 qw(-utf8);
 
+use Encode qw(encode_utf8 decode_utf8);
 use Data::Dumper::AutoEncode qw(eDumper);
 use URL::Encode qw(url_decode_utf8);
 
@@ -57,11 +58,18 @@ $req = new_ok(                                                              # 10
         username   => '花子',
         utterance  => 'チャオ！',
         agentState => $state,
-        addition   => $addition,
+
+        addition => $addition,
     ]
 );
 
+note decode_utf8 "$req";
+
+#=cut
+
 my $que = $api->request($req);
+
+note url_decode_utf8 decode_utf8 eDumper $que;
 
 #note url_decode_utf8 eDumper $que;
 

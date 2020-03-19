@@ -9,31 +9,20 @@ use Mouse::Util::TypeConstraints;
 
 use API::Chaplus::Request::AgentState;
 use API::Chaplus::Request::Addition;
-use URL::Encode qw(url_encode_utf8 url_decode_utf8);
 
 use overload (
-    '""'  => sub { url_decode_utf8 $_[0]->utterance() },
+    '""'  => sub { $_[0]->utterance() },
     '<=>' => sub { $_[0]->score <=> $_[1] },
 );
 
-has username => ( is => 'rw', isa => 'Encoded', coerce => 1 );
+has username => ( is => 'rw', isa => 'Str' );
 
-subtype 'Utterance' => as 'Encoded' =>
-  where { /^[A-F0-9%]+$/ and length($_) > 0 }
-=> message { "empty utterance was set" };
-coerce 'Utterance' => from 'Str' => via { url_encode_utf8($_) };
-has utterance => ( is => 'rw', isa => 'Utterance', required => 1, coerce => 1 );
+subtype 'Utterance' => as 'Str' => where { length($_) > 0 } =>
+  message { "empty utterance was set" };
+has utterance => ( is => 'rw', isa => 'Utterance', required => 1 );
 
-subtype 'AgentState' => as 'HashRef';
-coerce 'AgentState', from 'API::Chaplus::Request::AgentState',
-  via { API::Chaplus::Request::Addition::serialize($_) };
-has agentState => ( is => 'rw', isa => 'AgentState', coerce => 1 );
-
-subtype 'Addition' => as 'HashRef';
-coerce 'Addition', from 'API::Chaplus::Request::Addition', via {
-    return +{%$_}
-};
-has addition => ( is => 'rw', isa => 'Addition', coerce => 1 );
+has agentState => ( is => 'rw', isa => 'API::Chaplus::Request::AgentState' );
+has addition   => ( is => 'rw', isa => 'API::Chaplus::Request::Addition' );
 
 no Mouse;
 

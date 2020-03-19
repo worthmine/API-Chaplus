@@ -4,20 +4,26 @@ use Carp;
 
 our $VERSION = "0.01";
 
+use URL::Encode qw(url_encode);
+
 use Mouse;
 use Mouse::Util::TypeConstraints;
 
-use overload (
-    '""'  => sub { $_[0]->agentName() },
-    'cmp' => sub { $_[0]->age() cmp $_[1] },
-);
-
 has agentName => ( is => 'rw', isa => 'Str' );
-enum 'Tone'   => qw( normal kansai koshu dechu );
+enum 'Tone'   => [qw( normal kansai koshu dechu )];
 has tone      => ( is => 'rw', isa => 'Tone' );
 has age       => ( is => 'rw', isa => 'Str' );
 
 no Mouse;
+
+sub serialize {
+    my $self = shift;
+    {
+        agentName => url_encode( $self->agentName() ),
+        tone      => $self->tone(),
+        age       => url_encode( $self->age() ),
+    };
+}
 
 1;
 __END__
