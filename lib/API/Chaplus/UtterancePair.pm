@@ -5,7 +5,6 @@ use Carp;
 our $VERSION = "0.01";
 
 use Mouse;
-use Mouse::Util::TypeConstraints;
 
 has utterance => ( is => 'rw', isa => 'Str', required => 1 );
 has response  => ( is => 'rw', isa => 'Str', required => 1 );
