@@ -48,7 +48,6 @@
             "HTTP::Request::JSON" : "0",
             "JSON" : "0",
             "Mouse" : "0",
-            "URL::Encode" : "0",
             "enum" : "0",
             "perl" : "5.008001"
          }

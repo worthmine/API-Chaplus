@@ -5,7 +5,6 @@ use warnings;
 use Carp;
 
 use Encode qw(encode_utf8 decode_utf8);
-use URL::Encode qw(url_decode);
 use Data::Dumper::AutoEncode qw(eDumper);
 
 use JSON;
@@ -91,11 +90,10 @@ sub request {
     my ($res) = $f->request($req);
 
     if ( exists $res->{'code'} and $res->{'code'} eq '200' ) {
-        my $content = $j->decode( $res->{'content'} );
-        return $content;
+        return $j->decode( $res->{'content'} );
     }
     else {
-        croak "something wrong to post by Furl: " . url_decode eDumper($res);
+        croak "something wrong to post by Furl: " . eDumper($res);
     }
 }
 
@@ -135,8 +133,6 @@ attribute 'utterance' is required
 returns list of tokenized objects
 
 =cut 
-
-use Encode qw(encode_utf8 decode_utf8);
 
 sub tokenized {
     my $self = shift;

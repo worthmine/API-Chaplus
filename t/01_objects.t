@@ -51,7 +51,8 @@ my $state = new_ok(       # 08
 my $req =
   new_ok( 'API::Chaplus::Request', [ utterance => 'こんにちわ' ] );    # 09
 my $que = $api->request($req);
-note decode_utf8 eDumper $que;
+
+#note decode_utf8 eDumper $que;
 
 $req = new_ok(                                                              # 10
     'API::Chaplus::Request',
@@ -59,8 +60,7 @@ $req = new_ok(                                                              # 10
         username   => '花子',
         utterance  => 'チャオ！',
         agentState => $state,
-
-        addition => $addition,
+        addition   => $addition,
     ]
 );
 
@@ -70,6 +70,6 @@ note $req;
 
 $que = $api->request($req);
 
-note decode_utf8 eDumper $que;
+#note decode_utf8 eDumper $que;
 
 done_testing;

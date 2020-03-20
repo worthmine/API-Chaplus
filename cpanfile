@@ -6,7 +6,6 @@ requires 'enum';
 
 requires 'Data::Dumper::AutoEncode';
 requires 'JSON';
-requires 'URL::Encode';
 requires 'Furl';
 requires 'HTTP::Request::JSON';
 
