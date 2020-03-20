@@ -4,9 +4,6 @@ use Carp;
 
 our $VERSION = "0.01";
 
-use URL::Encode qw(url_encode);
-use URI::Encode;
-
 use Mouse;
 use Mouse::Util::TypeConstraints;
 
@@ -29,10 +26,10 @@ no Mouse;
 sub serialize {
     my $self = shift;
     {
-        options => [ map { url_encode $_ } @{ $self->options() } ],
+        options => $self->options(),
         utterancePairs =>
           [ map { $_->serialize() } @{ $self->utterancePairs() } ],
-        ngwords => [ map { url_encode $_ } @{ $self->ngwords() } ],
+        ngwords => $self->ngwords(),
     };
 }
 

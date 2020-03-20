@@ -4,8 +4,6 @@ use Carp;
 
 our $VERSION = "0.01";
 
-use URL::Encode qw(url_encode);
-
 use Mouse;
 use Mouse::Util::TypeConstraints;
 
@@ -17,8 +15,8 @@ no Mouse;
 sub serialize {
     my $self = shift;
     {
-        utterance => url_encode( $self->utterance() ),
-        response  => url_encode( $self->response() ),
+        utterance => $self->utterance(),
+        response  => $self->response(),
     };
 }
 

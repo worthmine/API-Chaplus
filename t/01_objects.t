@@ -1,10 +1,9 @@
 use strict;
 use Test::More 0.98 tests => 10;
-use Test::More::UTF8 qw(-utf8);
+use Test::More::UTF8;
 
-use Encode qw(encode_utf8 decode_utf8);
+use Encode qw(decode_utf8);
 use Data::Dumper::AutoEncode qw(eDumper);
-use URL::Encode qw(url_decode_utf8);
 
 use lib 'lib';
 use API::Chaplus;
@@ -51,6 +50,8 @@ my $state = new_ok(       # 08
 
 my $req =
   new_ok( 'API::Chaplus::Request', [ utterance => 'こんにちわ' ] );    # 09
+my $que = $api->request($req);
+note decode_utf8 eDumper $que;
 
 $req = new_ok(                                                              # 10
     'API::Chaplus::Request',
@@ -63,14 +64,12 @@ $req = new_ok(                                                              # 10
     ]
 );
 
-note decode_utf8 "$req";
+note $req;
 
 #=cut
 
-my $que = $api->request($req);
+$que = $api->request($req);
 
-note url_decode_utf8 decode_utf8 eDumper $que;
-
-#note url_decode_utf8 eDumper $que;
+note decode_utf8 eDumper $que;
 
 done_testing;

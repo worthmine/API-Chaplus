@@ -5,11 +5,11 @@ use warnings;
 use Carp;
 
 use Encode qw(encode_utf8 decode_utf8);
-use URL::Encode qw(url_encode url_decode);
+use URL::Encode qw(url_decode);
 use Data::Dumper::AutoEncode qw(eDumper);
 
 use JSON;
-my $j = JSON->new();
+my $j = JSON->new()->utf8();
 
 use Furl;
 my $f = Furl->new;
@@ -81,10 +81,8 @@ sub request {
         %attr = %{ shift; };
     }
 
-    my $ref = _encode(%attr);
-
+    my $ref    = _encode(%attr);
     my $params = $rj->json_content($ref);
-
     my $req =
       Furl::Request->new( 'POST', $self->{'endPoint'},
         { 'Content-Type' => 'application/json' },
@@ -169,7 +167,7 @@ sub _encode {
     my $hashref = {};
     while ( my ( $key, $value ) = each %origin ) {
         $hashref->{$key} = $value->serialize() and next if ref $value;
-        $hashref->{$key} = url_encode $value;
+        $hashref->{$key} = $value;
     }
     return $hashref;
 }
